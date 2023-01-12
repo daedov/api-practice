@@ -6,6 +6,6 @@ export class UserEntity implements User {
   id: number;
   @ApiProperty({ default: 'marcos@correo.com' })
   email: string;
-  @ApiProperty({ default: 'Marcos' })
+  @ApiProperty({ default: 'Marcos Pérez' })
   name: string;
 }

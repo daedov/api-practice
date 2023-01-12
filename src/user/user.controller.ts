@@ -13,9 +13,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
-  ApiResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger/dist';
 import { UserEntity } from './entities/user.entity';
 
@@ -29,53 +32,61 @@ export class UserController {
     type: UserEntity,
     description: 'The user has been successfully created',
   })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
   @ApiOkResponse({ type: UserEntity })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  @ApiResponse({ status: 500, description: 'Internal Server Error' })
-  @ApiBadRequestResponse({ description: "'Bad Request" })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: UserEntity })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  @ApiResponse({ status: 404, description: 'User Not Found' })
-  @ApiResponse({ status: 500, description: 'Internal Server Error' })
-  @ApiBadRequestResponse({ description: "'Bad Request" })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
   @Patch(':id')
-  @ApiOkResponse({ type: UserEntity })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 403, description: 'Forbidden' })
-  @ApiResponse({ status: 404, description: 'User Not Found' })
-  @ApiResponse({ status: 500, description: 'Internal Server Error' })
-  @ApiBadRequestResponse({ description: "'Bad Request" })
+  @ApiCreatedResponse({
+    type: UserEntity,
+    description: 'The user has been successfully updated',
+  })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
-  @ApiResponse({
-    status: 201,
-    description: 'The user has been successfully deleted',
+  @ApiOkResponse({ 
+    type: UserEntity, 
+    description: 'The user has been successfully deleted' 
   })
-  @ApiOkResponse({ type: UserEntity })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @ApiResponse({ status: 404, description: 'User Not Found' })
-  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
