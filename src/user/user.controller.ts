@@ -42,7 +42,10 @@ export class UserController {
   }
 
   @Get()
-  @ApiOkResponse({ type: UserEntity })
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'The request has been successful.',
+  })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiNotFoundResponse({ description: 'User Not Found' })
@@ -53,7 +56,10 @@ export class UserController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: UserEntity })
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'The request has been successful.',
+  })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
   @ApiNotFoundResponse({ description: 'User Not Found' })
@@ -78,9 +84,9 @@ export class UserController {
   }
 
   @Delete(':id')
-  @ApiOkResponse({ 
-    type: UserEntity, 
-    description: 'The user has been successfully deleted' 
+  @ApiOkResponse({
+    type: UserEntity,
+    description: 'The user has been successfully deleted',
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })

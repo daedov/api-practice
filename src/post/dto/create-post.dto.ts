@@ -4,14 +4,14 @@ import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 export class CreatePostDto {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({ default: 'The Cat' })
     title: string;
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({ default: 'The cat is a domestic species of small carnivorous mammal.' })
     content: string;
     @IsNotEmpty()
     @IsBoolean()
-    @ApiProperty()
+    @ApiProperty({ default: true })
     published: boolean;
 }

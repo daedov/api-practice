@@ -6,7 +6,7 @@ export class PostEntity implements Post {
     id: number;
     @ApiProperty({ default: 'The Cat' })
     title: string;
-    @ApiProperty({ default: 'The cat (Felis catus) is a domestic species of small carnivorous mammal. It is the only domesticated species in the family Felidae.' })
+    @ApiProperty({ default: 'The cat is a domestic species of small carnivorous mammal.' })
     content: string;
     @ApiProperty({ default: true })
     published: boolean;

@@ -13,11 +13,11 @@ export class PostController {
   @Post()
   @ApiCreatedResponse({ 
     type: PostEntity, 
-    description: 'The post has been successfully deleted' 
+    description: 'The post has been successfully created' 
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiNotFoundResponse({ description: 'Post Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   create(@Body() createPostDto: CreatePostDto) {
@@ -25,10 +25,13 @@ export class PostController {
   }
 
   @Get()
-  @ApiOkResponse({ type: PostEntity })
+  @ApiOkResponse({
+    type: PostEntity,
+    description: 'The request has been successful.',
+  })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiNotFoundResponse({ description: 'Post Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   findAll() {
@@ -36,10 +39,13 @@ export class PostController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: PostEntity })
+  @ApiOkResponse({
+    type: PostEntity,
+    description: 'The request has been successful.',
+  })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiNotFoundResponse({ description: 'Post Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   findOne(@Param('id') id: string) {
@@ -53,7 +59,7 @@ export class PostController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiNotFoundResponse({ description: 'Post Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
@@ -67,7 +73,7 @@ export class PostController {
   })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  @ApiNotFoundResponse({ description: 'User Not Found' })
+  @ApiNotFoundResponse({ description: 'Post Not Found' })
   @ApiInternalServerErrorResponse({ description: 'Internal Server Error' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   remove(@Param('id') id: string) {
