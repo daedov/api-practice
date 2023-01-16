@@ -1,10 +1,12 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PostService {
+
+  private readonly logger = new Logger(PostService.name)
 
   constructor(private prisma: PrismaService) {}
 

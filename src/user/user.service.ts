@@ -2,6 +2,7 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  Logger 
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,6 +10,8 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger(UserService.name)
+
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -30,10 +33,13 @@ export class UserService {
   }
 
   async findOne(id: number) {
+    this.logger.log('Ejecutando findOne de User service')
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
+      this.logger.error(`Id ${id} Not Found`)
       throw new NotFoundException(`Id ${id} Not Found`);
     }
+    this.logger.log('Ejecutado con exito findOne de User service')
     return user;
   }
 
