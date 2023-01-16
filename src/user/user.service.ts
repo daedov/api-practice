@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
+  
   private readonly logger = new Logger(UserService.name)
 
   constructor(private prisma: PrismaService) {}
