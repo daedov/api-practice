@@ -15,23 +15,23 @@ import { Request } from 'express';
     ConfigModule.forRoot(),
     LoggerModule.forRoot({
       pinoHttp: {
-        transport:
-          process.env.NODE_ENV === 'development'
-            ? {
-                target: 'pino-pretty',
-                options: {
-                  messageKey: 'message',
-                  ignore: 'time',
-                },
-              }
-            : undefined,
+        // transport:
+        //   process.env.NODE_ENV === 'development'
+        //     ? {
+        //         target: 'pino-pretty',
+        //         options: {
+        //           messageKey: 'message',
+        //           ignore: 'time',
+        //         },
+        //       }
+        //     : undefined,
 
-        // transport: {
-        //   target: 'pino-pretty',
-        //   options: {
-        //     messageKey: 'message'
-        //   },
-        // },
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            messageKey: 'message'
+          },
+        },
 
         // transport: process.env.NODE_ENV === 'development' ? {
         //   target: 'pino-http',
@@ -45,21 +45,21 @@ import { Request } from 'express';
         messageKey: 'message',
         customProps: (req: Request) => {
           return {
-            timestamp: new Date().toISOString(),
+            // timestamp: new Date().toISOString(),
             // transactionId: req[TRANSACTION_ID_HEADER],
             // spanId: req[SPAN_ID_HEADER],
             // parentId: req[PARENT_ID_HEADER],
-            env: process.env.NODE_ENV || 'dev',
-            consumer: 11,
-            component: '01-arch-typeorm: 1.0.0',
-            payload: req.body,
-
-            // myid: req.id
-            // timestamp1: new Date().toISOString(),
-            // id: req.id,
-            // method: req.method,
-            // url: req.url,
+            // env: process.env.NODE_ENV || 'dev',
+            // consumer: 11,
+            // component: '01-arch-typeorm: 1.0.0',
             // payload: req.body,
+
+            // myid: req.id,
+            // timestamp: new Date().toISOString(),
+            // id: req.id,
+            method: req.method,
+            url: req.url,
+            payload: req.body,
           };
         },
         autoLogging: false,
